@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="entete" language="groovy" pageWidth="164" pageHeight="68" columnWidth="164" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     parametre.`sigle` AS parametre_sigle,
+     parametre.`nom` AS parametre_nom,
+     parametre.`siege` AS parametre_siege,
+     parametre.`bp` AS parametre_bp,
+     parametre.`ville` AS parametre_ville,
+     parametre.`email_paroisse` AS parametre_email_paroisse,
+     parametre.`site_web` AS parametre_site_web,
+     parametre.`telephone` AS parametre_telephone,
+     parametre.`logo` AS parametre_logo
+FROM
+     `parametre` parametre]]>
+	</queryString>
+	<field name="parametre_sigle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_nom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_siege" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_bp" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_ville" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_email_paroisse" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_site_web" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_telephone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="parametre_logo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="66" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="26" width="152" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["BP: "+$F{parametre_bp}+" "+$F{parametre_ville}+
+"\n Tél: "+$F{parametre_telephone}+
+"\n email: "+$F{parametre_email_paroisse}+
+"\n site web: "+$F{parametre_site_web}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="11" width="152" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{parametre_sigle}+" DE "+$F{parametre_siege}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="-1" y="0" width="152" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{parametre_nom}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="16" width="32" height="24"/>
+				<imageExpression class="java.lang.String"><![CDATA[$F{parametre_logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

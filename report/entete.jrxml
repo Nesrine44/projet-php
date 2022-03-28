@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="entete" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     preferences.`societe` AS preferences_societe,
+     preferences.`slogan` AS preferences_slogan,
+     preferences.`niu` AS preferences_niu,
+     preferences.`rc` AS preferences_rc,
+     preferences.`ville` AS preferences_ville,
+     preferences.`adresse` AS preferences_adresse,
+     preferences.`site_web` AS preferences_site_web,
+     preferences.`email` AS preferences_email,
+     preferences.`telephone_mobile` AS preferences_telephone_mobile,
+     preferences.`telephone_fixe` AS preferences_telephone_fixe,
+     preferences.`logo` AS preferences_logo
+FROM
+     `preferences` preferences]]>
+	</queryString>
+	<field name="preferences_societe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_slogan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_niu" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_rc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_ville" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_adresse" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_site_web" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_telephone_mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_telephone_fixe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="preferences_logo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="75" splitType="Stretch">
+			<textField>
+				<reportElement x="85" y="54" width="470" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Mobile: "+$F{preferences_telephone_mobile}+", Fixe: "+$F{preferences_telephone_fixe}+" email: "+$F{preferences_email}+" site web: "+$F{preferences_site_web}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="19" y="7" width="142" height="59"/>
+				<imageExpression class="java.lang.String"><![CDATA[$F{preferences_logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement mode="Opaque" x="85" y="7" width="470" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{preferences_societe}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="23" width="470" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["\""+new String($F{preferences_slogan}.getBytes("ISO-8859-1"), "UTF-8")+"\""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="33" width="470" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["NIU: "+$F{preferences_niu}+", RC: "+$F{preferences_rc}+\n"  Adresse: "+new String($F{preferences_ville}.getBytes("ISO-8859-1"), "UTF-8")+", "+new String($F{preferences_adresse}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

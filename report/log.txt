@@ -1,0 +1,7 @@
+UPDATE `parametre` SET `sigle`='EPC', `nom`='EGLISE EVANGELIQUE DU CAMEROUN',`siege`='BIYEM-ASSI',`bp`=13501,`ville`='YAOUNDE',`email_paroisse`='info@eec-biyemassi.net',`site_web`='www.eec-biyemassi.net',`telephone`='676544214',`date_paroisse`='1987-01-01'  WHERE idparametre = 1
+UPDATE `parametre` SET `sigle`='EPC', `nom`='EGLISE EVANGELIQUE DU CAMEROUN',`siege`='BIYEM-ASSI',`bp`=13501,`ville`='YAOUNDE',`email_paroisse`='info@eec-biyemassi.net',`site_web`='www.eec-biyemassi.net',`telephone`='676544214',`date_paroisse`='1987-01-01'  WHERE idparametre = 1
+UPDATE `parametre` SET `sigle`='EPC', `nom`='EGLISE EVANGELIQUE DU CAMEROUN',`siege`='BIYEM-ASSI',`bp`=13501,`ville`='YAOUNDE',`email_paroisse`='info@eec-biyemassi.net',`site_web`='www.eec-biyemassi.net',`telephone`='676544214',`date_paroisse`='1987-01-01'  WHERE idparametre = 1
+UPDATE `parametre` SET `sigle`='EEC', `nom`='EGLISE EVANGELIQUE DU CAMEROUN',`siege`='BIYEM-ASSI',`bp`=13501,`ville`='YAOUNDE',`email_paroisse`='info@eec-biyemassi.net',`site_web`='www.eec-biyemassi.net',`telephone`='676544214',`date_paroisse`='1987-01-01'  WHERE idparametre = 1
+
+UPDATE `parametre` SET `sigle`='EEC', `nom`='EGLISE EVANGELIQUE DU CAMEROUN',`siege`='BIYEM-ASSI',`bp`=13501,`ville`='YAOUNDE',`email_paroisse`='info@eec-biyemassi.net',`site_web`='www.eec-biyemassi.net',`telephone`='676544214',`date_paroisse`='1987-01-01'  WHERE idparametre = 1
+

@@ -1,0 +1,39 @@
+
+<style type="text/css">
+    /*==============================================================
+    Global Styles Start pour le pre loader
+==============================================================*/
+.pre-loader{
+    background: url(img/new-loader.gif) no-repeat #fffef2;
+    background-position: center center;
+    background-size: 13%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 12345;
+}
+    /*==============================================================
+    Global script Start pour le pre loader
+==============================================================*/
+@media (max-width: 767px){
+    .pre-loader{background-size: 43%;}
+}
+</style>
+<script type="text/javascript">
+    jQuery(window).on("load",function() {
+    "use strict";
+    jQuery(".pre-loader").fadeToggle("medium");
+
+});
+    jQuery(window).on("load resize", function () {
+    $(".customscroll").mCustomScrollbar({
+        theme: "minimal-dark",
+        advanced:{
+            autoScrollOnFocus: false,
+        },
+   });
+});
+</script>
+<div class="pre-loader"></div>

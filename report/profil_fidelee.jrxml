@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="profil" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="160"/>
+	<parameter name="param" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\LE-POLY\\Desktop\\profil\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     personne.`nom` AS personne_nom,
+     personne.`prenom` AS personne_prenom,
+     personne.`datenaiss` AS personne_datenaiss,
+     personne.`lieunaiss` AS personne_lieunaiss,
+     personne.`sexe` AS personne_sexe,
+     personne.`email` AS personne_email,
+     personne.`profession` AS personne_profession,
+     personne.`telephone` AS personne_telephone,
+     personne.`pere` AS personne_pere,
+     personne.`pere_vivant` AS personne_pere_vivant,
+     personne.`mere` AS personne_mere,
+     personne.`mere_vivant` AS personne_mere_vivant,
+     personne.`photo` AS personne_photo,
+     personne.`domaine` AS personne_domaine,
+     personne.`diplome` AS personne_diplome,
+     personne.`annee_enregistrement` AS personne_annee_enregistrement,
+     personne.`statut_pro` AS personne_statut_pro,
+     personne.`employeur` AS personne_employeur,
+     personne.`village` AS personne_village,
+     personne.`arrondissement` AS personne_arrondissement,
+     personne.`etablissement` AS personne_etablissement,
+     personne.`niveau` AS personne_niveau,
+     personne.`serie` AS personne_serie,
+     personne.`situation_matri` AS personne_situation_matri,
+     personne.`conjoint` AS personne_conjoint,
+     personne.`nombre_enfant` AS personne_nombre_enfant,
+     personne.`religion_conjoint` AS personne_religion_conjoint,
+     personne.annee_enregistrement AS annee_enregistrement,
+     fidele.`codeFidele` AS fidele_codeFidele,
+     fidele.`statut` AS fidele_statut,
+     fidele.`date_inscription` AS fidele_date_inscription,
+     fidele.idfidele as fidele,
+     zone.nomzone as zone_nomzone,
+    region.`region` AS region_region,
+     departement.`departement` AS departement_departement,
+     arrondissement.`arrondissement` AS arrondissement_arrondissement,
+
+	(case when fidele.idfidele IN (SELECT fidele_idfidele FROM bapteme where lisible = 1) then 'OUI' else 'NON'  end) as est_baptise,
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM bapteme where lisible = 1) then (SELECT dateBaptise FROM bapteme where fidele_idfidele = fidele.idfidele) end) as datebapteme,
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM bapteme where lisible = 1) then (SELECT lieu_baptise FROM bapteme where fidele_idfidele = fidele.idfidele) else ""  end) as lieubapteme,
+
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM confirmation where lisible = 1) then 'OUI' else 'NON'  end) as est_confirme,
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM confirmation where lisible = 1) then (SELECT date_confirmation FROM confirmation where fidele_idfidele = fidele.idfidele) end) as dateconfirmation,
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM bapteme where lisible = 1) then (SELECT lieu_confirmation FROM confirmation where fidele_idfidele = fidele.idfidele) else ""  end) as lieuconfirmation,
+
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM malade where lisible = 1) then 'OUI' else 'NON'  end) as est_malade,
+     (case when fidele.idfidele IN (SELECT fidele_idfidele FROM malade where lisible = 1) then (SELECT guide FROM malade where fidele_idfidele = fidele.idfidele) end) as guide
+
+FROM
+     `personne` personne
+     INNER JOIN `fidele` fidele ON personne.`idpersonne` = fidele.`personne_idpersonne`
+     INNER JOIN `arrondissement` arrondissement ON personne.`arrondissement` = arrondissement.`idarrondissement`
+     INNER JOIN `departement` departement ON arrondissement.`departement_iddepartement` = departement.`iddepartement`
+     INNER JOIN `region` region ON departement.`region_idregion` = region.`idregion`
+     INNER JOIN `zone` zone ON personne.`zone_idzone` = zone.`idzone`
+
+AND personne.idpersonne = $P{param}]]>
+	</queryString>
+	<field name="personne_nom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_prenom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_datenaiss" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_lieunaiss" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_sexe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_profession" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_telephone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_pere" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_pere_vivant" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_mere" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_mere_vivant" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_photo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_domaine" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_diplome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_annee_enregistrement" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_statut_pro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_employeur" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_village" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_arrondissement" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_etablissement" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_niveau" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_serie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_situation_matri" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_conjoint" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_nombre_enfant" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_religion_conjoint" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="annee_enregistrement" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fidele_codeFidele" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fidele_statut" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fidele_date_inscription" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fidele" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="zone_nomzone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="region_region" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="departement_departement" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="arrondissement_arrondissement" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_baptise" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="datebapteme" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lieubapteme" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_confirme" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dateconfirmation" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lieuconfirmation" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="est_malade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="guide" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="68" splitType="Stretch">
+			<subreport>
+				<reportElement x="5" y="-1" width="91" height="53"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["C:\\wamp\\www\\Church\\report\\entete.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="35" width="555" height="79"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="190" y="37" width="216" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_nom}.getBytes("ISO-8859-1"), "UTF-8")+" "+new String($F{personne_prenom}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="53" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date de naissance:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="190" y="53" width="130" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{personne_datenaiss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="73" width="90" height="20"/>
+				<textElement/>
+				<text><![CDATA[Lieu de naissance:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="180" y="73" width="227" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_lieunaiss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="407" y="54" width="41" height="19"/>
+				<textElement/>
+				<text><![CDATA[Sexe:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="54" width="104" height="19"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_sexe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="37" width="58" height="16"/>
+				<textElement/>
+				<text><![CDATA[Téléphone:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="464" y="37" width="90" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_telephone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="93" width="37" height="17"/>
+				<textElement/>
+				<text><![CDATA[Zone:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="442" y="94" width="99" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{zone_nomzone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="74" width="37" height="17"/>
+				<textElement/>
+				<text><![CDATA[Code:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="443" y="74" width="103" height="17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fidele_codeFidele}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="38" width="100" height="16"/>
+				<textElement/>
+				<text><![CDATA[Nom(s) et prenom(s):]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="35" width="89" height="80"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\wamp\\www\\Church\\images\\"+$F{personne_photo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="81" y="0" width="394" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROFIL FIDELE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="94" width="37" height="16"/>
+				<textElement/>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="128" y="94" width="278" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="390" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="6" width="555" height="118"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="130" width="555" height="118"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="43" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_mere}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="293" y="29" width="118" height="14"/>
+				<textElement/>
+				<text><![CDATA[Situation matrimoniale]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="294" y="43" width="142" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_situation_matri}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="454" y="29" width="76" height="14"/>
+				<textElement/>
+				<text><![CDATA[Nom conjoint]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="454" y="43" width="92" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_conjoint}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="61" width="92" height="14"/>
+				<textElement/>
+				<text><![CDATA[Réligion conjoint]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="75" width="100" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_religion_conjoint}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="153" y="61" width="89" height="16"/>
+				<textElement/>
+				<text><![CDATA[Nombre d'enfants]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="77" width="100" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{personne_nombre_enfant}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="61" width="85" height="14"/>
+				<textElement/>
+				<text><![CDATA[Région d'origine]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="294" y="75" width="100" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{region_region}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="454" y="61" width="92" height="16"/>
+				<textElement/>
+				<text><![CDATA[Département]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="76" width="91" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{departement_departement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="90" width="86" height="17"/>
+				<textElement/>
+				<text><![CDATA[Arrondissement]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="107" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{arrondissement_arrondissement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="153" y="92" width="39" height="16"/>
+				<textElement/>
+				<text><![CDATA[Village]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="108" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_village}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="29" width="93" height="14"/>
+				<textElement/>
+				<text><![CDATA[Nom du père]]></text>
+			</staticText>
+			<elementGroup>
+				<staticText>
+					<reportElement x="0" y="6" width="150" height="19"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ Etat civil]]></text>
+				</staticText>
+			</elementGroup>
+			<staticText>
+				<reportElement x="455" y="153" width="98" height="14"/>
+				<textElement/>
+				<text><![CDATA[Lieu de baptème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="213" width="86" height="17"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Guide]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="216" width="128" height="16"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Année d'adhésion à l'EEC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="185" width="101" height="14"/>
+				<textElement/>
+				<text><![CDATA[Date de confirmation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="184" width="92" height="14"/>
+				<textElement/>
+				<text><![CDATA[Malade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="183" width="89" height="16"/>
+				<textElement/>
+				<text><![CDATA[Confirmé]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="150" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Statut paroissial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="184" width="92" height="16"/>
+				<textElement/>
+				<text><![CDATA[Lieu de confirmation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="153" width="118" height="14"/>
+				<textElement/>
+				<text><![CDATA[Date de baptème]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="153" width="60" height="14"/>
+				<textElement/>
+				<text><![CDATA[Statut]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="43" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_pere}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="153" y="153" width="78" height="14"/>
+				<textElement/>
+				<text><![CDATA[Baptisé]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="29" width="100" height="14"/>
+				<textElement/>
+				<text><![CDATA[Nom de la mère]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="166" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fidele_statut}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="293" y="167" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{datebapteme}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="455" y="166" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lieubapteme}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="168" y="232" width="73" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{personne_annee_enregistrement}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="254" width="555" height="97"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="254" width="150" height="20"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Statut professionnel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="280" width="118" height="14"/>
+				<textElement/>
+				<text><![CDATA[Classe/Niveau]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="311" width="92" height="14"/>
+				<textElement/>
+				<text><![CDATA[Dernier diplôme]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="310" width="89" height="16"/>
+				<textElement/>
+				<text><![CDATA[Domaine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="280" width="78" height="14"/>
+				<textElement/>
+				<text><![CDATA[Etablissement]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="311" width="101" height="14"/>
+				<textElement/>
+				<text><![CDATA[Profession]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="280" width="98" height="14"/>
+				<textElement/>
+				<text><![CDATA[Série/Filère]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="280" width="60" height="14"/>
+				<textElement/>
+				<text><![CDATA[Statut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="312" width="92" height="16"/>
+				<textElement/>
+				<text><![CDATA[Employeur]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="4" y="293" width="100" height="17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fidele_statut}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="152" y="293" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_etablissement}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="292" y="294" width="100" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_niveau}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="454" y="294" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_serie}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="4" y="325" width="148" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_diplome}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="326" width="140" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_domaine}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="293" y="325" width="161" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_profession}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="454" y="327" width="100" height="14"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_employeur}.getBytes("ISO-8859-1"), "UTF-8").toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="154" y="166" width="77" height="15"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{est_baptise}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="199" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{est_confirme}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="293" y="199" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{dateconfirmation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="456" y="199" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[( $F{lieuconfirmation} == null ? "" : $F{lieuconfirmation}.toString() )]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="6" y="198" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{est_malade}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="228" width="147" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{guide}.equals(null)? "": $F{guide})]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="3" y="353" width="200" height="37"/>
+				<subreportParameter name="param">
+					<subreportParameterExpression><![CDATA[$P{param}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["C:\\wamp\\www\\Church\\report\\profil fidele_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="67" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-1" y="41" width="555" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement x="502" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="434" y="1" width="68" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy HH.mm.ss">
+					<reportElement x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="260" y="3" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[By KTC-CENTER]]></text>
+				</staticText>
+			</frame>
+			<componentElement>
+				<reportElement x="2" y="1" width="75" height="36"/>
+				<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{fidele_codeFidele}]]></jr:codeExpression>
+				</jr:DataMatrix>
+			</componentElement>
+		</band>
+	</pageFooter>
+</jasperReport>

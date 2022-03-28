@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ticket" language="groovy" pageWidth="164" pageHeight="300" columnWidth="164" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="param" class="java.lang.String"/>
+	<parameter name="param2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     saintescene.`mois` AS saintescene_mois,
+     saintescene.`annee` AS saintescene_annee,
+     personne.`nom` AS personne_nom,
+     fidele.idfidele as idfidele,
+     personne.`prenom` AS personne_prenom,
+     contributionfidele.`utilisateur_idutilisateur` AS contributionfidele_utilisateur_idutilisateur,
+     contributionfidele.`saintescene_idsaintescene` AS contributionfidele_saintescene_idsaintescene,
+     contributionfidele.`montant` AS contributionfidele_montant,
+     contributionfidele.`typecontribution` AS contributionfidele_typecontribution,
+     contributionfidele.`date` AS contributionfidele_date,
+     contributionfidele.`heure` AS contributionfidele_heure,
+     fidele.`codeFidele` AS fidele_codeFidele,
+     sum(case when typecontribution='offrandes' then montant else 0 end) as ofrande,
+     sum(case when typecontribution='travaux' then montant else 0 end) as travaux,
+     sum(case when typecontribution='Conciergerie' then montant else 0 end) as conciegerie,
+     sum(case when typecontribution='don' then montant else 0 end) as don
+FROM
+     `fidele` fidele INNER JOIN `contributionfidele` contributionfidele ON fidele.`idfidele` = contributionfidele.`fidele_idfidele`
+     INNER JOIN `personne` personne ON fidele.`personne_idpersonne` = personne.`idpersonne`
+     INNER JOIN `saintescene` saintescene ON contributionfidele.`saintescene_idsaintescene` = saintescene.`idsaintescene`
+AND fidele.lisible = 1
+AND contributionfidele.lisible = 1
+AND personne.lisible = 1
+AND saintescene.lisible = 1
+AND fidele_idfidele = $P{param}
+AND saintescene.idsaintescene = $P{param2}]]>
+	</queryString>
+	<field name="saintescene_mois" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="saintescene_annee" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_nom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idfidele" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="personne_prenom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_utilisateur_idutilisateur" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_saintescene_idsaintescene" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_montant" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_typecontribution" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contributionfidele_heure" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fidele_codeFidele" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ofrande" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="travaux" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conciegerie" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="don" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="37" splitType="Stretch">
+			<subreport>
+				<reportElement x="13" y="4" width="104" height="31"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["C:\\wamp\\www\\Church\\report\\entete_ticket.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="67" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="2" width="164" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TICKET DE PARTICIPATION A LA \n SAINTE CENE DE "+$F{saintescene_mois}+" "+$F{saintescene_annee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="30" width="112" height="21"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fidele_codeFidele}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="44" width="130" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="5" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[new String($F{personne_nom}.getBytes("ISO-8859-1"), "UTF-8")+" "+new String($F{personne_prenom}.getBytes("ISO-8859-1"), "UTF-8")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="93">
+			<subreport>
+				<reportElement x="0" y="77" width="164" height="15"/>
+				<subreportParameter name="param2">
+					<subreportParameterExpression><![CDATA[$F{contributionfidele_utilisateur_idutilisateur}.toString()]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA["C:\\wamp\\www\\Church\\report\\ticket_utilisateur.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="69" width="164" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Opérateur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="3" width="59" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ Conciergerie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="15" width="59" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ Dons]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="27" width="59" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ Offrandes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="39" width="59" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ Travaux]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="27" width="70" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{ofrande}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="39" width="70" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{travaux}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="15" width="70" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{don}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="3" width="70" height="12"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{conciegerie}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="78" y="51" width="70" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$F{ofrande}+$F{travaux}+$F{conciegerie}+$F{don}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="51" width="59" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ TOTAL(FCFA)]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="38">
+			<staticText>
+				<reportElement x="0" y="24" width="164" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[By KTC-CENTER, www.kamer-center.net]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="13" y="1" width="36" height="24"/>
+				<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{fidele_codeFidele}]]></jr:codeExpression>
+				</jr:DataMatrix>
+			</componentElement>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="52" y="9" width="57" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{contributionfidele_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement x="109" y="9" width="48" height="12"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Time"><![CDATA[$F{contributionfidele_heure}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
